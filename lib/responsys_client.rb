@@ -26,8 +26,8 @@ module SunDawg
     def initialize(username, password, options = {})
       @username = username
       @password = password
-      @keep_alive = false
-      @responsys_client = ResponsysWS.new
+      @keep_alive = options[:keepalive] || false
+      @responsys_client = ResponsysWS.new options[:endpoint]
       @responsys_client.wiredump_dev = options[:wiredump_dev] if options[:wiredump_dev]
     end 
 
@@ -71,10 +71,30 @@ module SunDawg
       end
     end
 
+    def list_folder_objects(folder_name, folder_type)
+      with_session do
+        request = ListFolderObjects.new
+        request.folderName = folder_name
+        request.type = folder_type
+        @responsys_client.listFolderObjects request
+      end
+    end
+
+    def create_list(folder_name, object_name, description, fields)
+      with_session do
+        request = CreateList.new
+        request.list = InteractObject.new(folder_name, object_name)
+        request.description = description
+        request.fields = fields.collect { |f| Field.new(f[:name], f[:type], f[:custom], f[:key]) }
+        @responsys_client.createList request
+      end
+    end
+
+
     def save_members(folder_name, list_name, members, permission_status = PermissionStatus::OPTIN) 
-      raise MethodsNotSupportedError unless SunDawg::Responsys::Member.fields.include?(:email_address) && SunDawg::Responsys::Member.fields.include?(:email_permission_status)
+      #raise MethodsNotSupportedError unless SunDawg::Responsys::Member.fields.include?(:email_address_) && SunDawg::Responsys::Member.fields.include?(:email_permission_status)
       raise TooManyMembersError if members.size > MAX_MEMBERS
-      raise InconsistentPermissionStatusError if members.reject { |i| i.email_permission_status != permission_status }.size != members.size
+      #raise InconsistentPermissionStatusError if members.reject { |i| i.email_permission_status != permission_status }.size != members.size
 
       with_session do
         list_merge_rule = ListMergeRule.new
