@@ -106,7 +106,7 @@ module SunDawg
         record_data.fieldNames = SunDawg::Responsys::Member.responsys_fields
         record_data.records = []
         members.each do |member|
-          record = Record.new
+          record = ResponsysRecord.new
           record = member.values
           record_data.records << record
         end

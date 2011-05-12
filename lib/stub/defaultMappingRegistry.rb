@@ -254,8 +254,8 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Record,
-    :schema_type => XSD::QName.new(NsWsRsysCom, "Record"),
+    :class => ResponsysRecord,
+    :schema_type => XSD::QName.new(NsWsRsysCom, "ResponsysRecord"),
     :schema_element => [
       ["fieldValues", "SOAP::SOAPString[]", [1, nil]]
     ]
@@ -274,7 +274,7 @@ module DefaultMappingRegistry
     :schema_type => XSD::QName.new(NsWsRsysCom, "RecordData"),
     :schema_element => [
       ["fieldNames", "SOAP::SOAPString[]", [1, nil]],
-      ["records", "Record[]", [1, nil]]
+      ["records", "ResponsysRecord[]", [1, nil]]
     ]
   )
 
@@ -740,8 +740,8 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Record,
-    :schema_type => XSD::QName.new(NsWsRsysCom, "Record"),
+    :class => ResponsysRecord,
+    :schema_type => XSD::QName.new(NsWsRsysCom, "ResponsysRecord"),
     :schema_element => [
       ["fieldValues", "SOAP::SOAPString[]", [1, nil]]
     ]
@@ -760,7 +760,7 @@ module DefaultMappingRegistry
     :schema_type => XSD::QName.new(NsWsRsysCom, "RecordData"),
     :schema_element => [
       ["fieldNames", "SOAP::SOAPString[]", [1, nil]],
-      ["records", "Record[]", [1, nil]]
+      ["records", "ResponsysRecord[]", [1, nil]]
     ]
   )
 

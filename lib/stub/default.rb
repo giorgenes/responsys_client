@@ -469,8 +469,8 @@ class GetUpdatedResult
   end
 end
 
-# {urn:ws.rsys.com}Record
-class Record < ::Array
+# {urn:ws.rsys.com}ResponsysRecord
+class ResponsysRecord < ::Array
 end
 
 # {urn:ws.rsys.com}RetrieveResult
