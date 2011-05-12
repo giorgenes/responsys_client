@@ -2,6 +2,7 @@ require 'rubygems'
 gem 'soap4r'
 require 'stub/defaultDriver.rb'
 require 'stub/defaultMappingRegistry.rb'
+require 'member'
 
 module SunDawg
   class ResponsysClient
