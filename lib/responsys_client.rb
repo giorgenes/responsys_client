@@ -92,7 +92,7 @@ module SunDawg
     end
 
 
-    def save_members(folder_name, list_name, members, permission_status = PermissionStatus::OPTIN) 
+    def save_members(folder_name, list_name, members, merge_rules, permission_status = PermissionStatus::OPTIN) 
       #raise MethodsNotSupportedError unless SunDawg::Responsys::Member.fields.include?(:email_address_) && SunDawg::Responsys::Member.fields.include?(:email_permission_status)
       raise TooManyMembersError if members.size > MAX_MEMBERS
       #raise InconsistentPermissionStatusError if members.reject { |i| i.email_permission_status != permission_status }.size != members.size
@@ -101,7 +101,9 @@ module SunDawg
         list_merge_rule = ListMergeRule.new
         list_merge_rule.insertOnNoMatch = true
         list_merge_rule.updateOnMatch = UpdateOnMatch::REPLACE_ALL
-        list_merge_rule.matchColumnName1 = "EMAIL_ADDRESS_"
+        list_merge_rule.matchColumnName1 = merge_rules[:match_col1]
+	list_merge_rule.matchColumnName2 = merge_rules[:match_col2]
+	list_merge_rule.matchColumnName3 = merge_rules[:match_col3]
         list_merge_rule.defaultPermissionStatus = permission_status
         record_data = RecordData.new
         record_data.fieldNames = SunDawg::Responsys::Member.responsys_fields
