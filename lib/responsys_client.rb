@@ -108,7 +108,7 @@ module SunDawg
         list_merge_rule.defaultPermissionStatus = permission_status
 	list_merge_rule.matchOperator = merge_rules[:operator]
         record_data = RecordData.new
-        record_data.fieldNames = SunDawg::Responsys::Member.responsys_fields
+        record_data.fieldNames = members.first.keys.collect { |k| k.to_s.upcase }
         record_data.records = []
         members.each do |member|
           record = ResponsysRecord.new
