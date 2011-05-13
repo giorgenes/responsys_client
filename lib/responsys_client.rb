@@ -30,6 +30,7 @@ module SunDawg
       @keep_alive = options[:keepalive] || false
       @responsys_client = ResponsysWS.new options[:endpoint]
       @responsys_client.wiredump_dev = options[:wiredump_dev] if options[:wiredump_dev]
+      @timeout = options[:timeout] || 10 
     end 
 
     def login
@@ -163,7 +164,7 @@ module SunDawg
     end
 
     def with_timeout
-      Timeout::timeout(5, ResponsysTimeoutError) do
+      Timeout::timeout(@timeout, ResponsysTimeoutError) do
         yield
       end
     end
