@@ -105,6 +105,7 @@ module SunDawg
 	list_merge_rule.matchColumnName2 = merge_rules[:match_col2]
 	list_merge_rule.matchColumnName3 = merge_rules[:match_col3]
         list_merge_rule.defaultPermissionStatus = permission_status
+	list_merge_rule.matchOperator = merge_rules[:operator]
         record_data = RecordData.new
         record_data.fieldNames = SunDawg::Responsys::Member.responsys_fields
         record_data.records = []
